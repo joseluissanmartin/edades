@@ -1,0 +1,85 @@
+<meta charset="UTF-8">
+<html lang="es">
+<title>App http</title>
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    function init() {
+        let socket = io();
+        socket.on('lectura', function (data) {
+            document.getElementById("edad").value = data;
+            if (data == 0) {
+                let preNatal = "Pre-Natal";
+                document.getElementById("etapa").value = preNatal;
+                document.getElementById("aspecto").src = "pre-natal.png";
+            }
+            if (data > 0 && data <= 6) {
+                let infamcia = "Infancia";
+                document.getElementById("etapa").value = infamcia;
+                document.getElementById("aspecto").src = "infancia.png";
+            }
+            if (data > 6 && data <= 12) {
+                let ninez = "Ninez";
+                document.getElementById("etapa").value = ninez;
+                document.getElementById("aspecto").src = "ninez.png";
+            }
+            if (data > 12 && data <= 20) {
+                let adolecencia = "Adolecencia";
+                document.getElementById("etapa").value = adolecencia;
+                document.getElementById("aspecto").src = "adolecencia.png";
+            }
+            if (data > 20 && data <= 25) {
+                let juventud = "Juventud";
+                document.getElementById("etapa").value = juventud;
+                document.getElementById("aspecto").src = "juvetud.png";
+            }
+            if (data > 25 && data <= 60) {
+                let adultez = "Adultez";
+                document.getElementById("etapa").value = adultez;
+                document.getElementById("aspecto").src = "adultez.png";
+            }
+            if (data > 60) {
+                let vejez = "Vejez";
+                document.getElementById("etapa").value = vejez;
+                document.getElementById("aspecto").src = "ancienidad.png";
+            }
+        });
+    }
+</script>
+<head>
+    <body>
+        <body bgcolor="Silver">
+        <h1><center>Aplicacion Pagina HTML</center></h1>
+        <h2><center>Universidad Autonoma de Chile</center></h2>
+        <p>
+            <h3>Etapas de la vida</h3>
+        </p>
+        EDAD RECIBIDA: <input id="edad" size="10">
+        ETAPA DE LA VIDA: <input id="etapa" size="10">
+
+        <center><img src="pre-natal.png" input type="image" id="aspecto" style="width: 833px; height: 321px;"></center>
+        <p>
+        <center><input type="button" onclick="init()" value="ACTIVAR SISTEMA"></center>
+        </p>
+</head>
+
+<form name="formulario" method="get" action="http://localhost:1000">
+    <center>EXAMEN DE BOCA</center>
+    <center><input type="submit" value='0' name="nombre" formaction=""
+                   style="width: 300px; height: 130px; color:#003366; background-color:white"></center>
+    <center>EXAMEN DE CORAZON</center>
+    <center><input type="submit" value='1' name="nombre" formaction=""
+                   style="width: 300px; height: 130px; color:#003366; background-color:pink"></center>
+    <center>EXAMEN DE ESTOMAGO</center>
+    <center><input type="submit" value='2' name="nombre" formaction=""
+                   style="width: 300px; height: 130px; color:#003366; background-color:yellow"></center>
+    <center>EXAMEN DE OIDO</center>
+    <center><input type="submit" value='3' name="nombre" formaction=""
+                   style="width: 300px; height: 130px; color:#003366; background-color:coral"></center>
+    <center>EXAMEN DE PULMON</center>
+    <center><input type="submit" value='4' name="nombre" formaction=""
+                   style="width: 300px; height: 130px; color:#003366; background-color:red"></center>
+
+</form>
+</body>
+</body>
+</html>
