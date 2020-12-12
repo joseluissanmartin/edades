@@ -52,6 +52,10 @@
         localStorage.setItem("active_arquitectura", true);
         active_sistem();
     }
+    function finish() {
+        localStorage.setItem("active_arquitectura", false);
+        location.reload();
+    }
 </script>
 <head>
     <body>
@@ -67,6 +71,7 @@
         <center><img src="pre-natal.png" input type="image" id="aspecto" style="width: 833px; height: 321px;"></center>
         <p>
         <center><input type="button" onclick="init()" value="ACTIVAR SISTEMA"></center>
+        <center><input type="button" onclick="finish()" value="DESACTIVAR SISTEMA"></center>
         </p>
 </head>
 
