@@ -3,7 +3,8 @@
 <title>App http</title>
 <script src="/socket.io/socket.io.js"></script>
 <script>
-    function init() {
+    const active = localStorage.getItem("active_arquitectura");
+    function active_sistem() {
         let socket = io();
         socket.on('lectura', function (data) {
             document.getElementById("edad").value = data;
@@ -30,7 +31,7 @@
             if (data > 20 && data <= 25) {
                 let juventud = "Juventud";
                 document.getElementById("etapa").value = juventud;
-                document.getElementById("aspecto").src = "juvetud.png";
+                document.getElementById("aspecto").src = "juventud.png";
             }
             if (data > 25 && data <= 60) {
                 let adultez = "Adultez";
@@ -43,6 +44,13 @@
                 document.getElementById("aspecto").src = "ancienidad.png";
             }
         });
+    }
+    if (active === "true") {
+        active_sistem();
+    }
+    function init() {
+        localStorage.setItem("active_arquitectura", true);
+        active_sistem();
     }
 </script>
 <head>
@@ -59,10 +67,11 @@
         <center><img src="pre-natal.png" input type="image" id="aspecto" style="width: 833px; height: 321px;"></center>
         <p>
         <center><input type="button" onclick="init()" value="ACTIVAR SISTEMA"></center>
+        <center><input type="button" onclick="finish()" value="DESACTIVAR SISTEMA"></center>
         </p>
 </head>
 
-<form name="formulario" method="get" action="http://localhost:1000">
+<form name="formulario" method="get" action="http://localhost:1000"  onsubmit="return true;">
     <center>EXAMEN DE BOCA</center>
     <center><input type="submit" value='0' name="nombre" formaction=""
                    style="width: 300px; height: 130px; color:#003366; background-color:white"></center>

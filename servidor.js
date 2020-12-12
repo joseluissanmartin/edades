@@ -9,6 +9,21 @@ let s = dgram.createSocket("udp4");
 
 //servidor HTTP
 
+function serveStaticFile(res, path, contentType, responseCode) {
+    if(!responseCode) responseCode = 200;
+
+    fs.readFile(__dirname + path, function(err, data) {
+        if(err) {
+            res.writeHead(500, { 'Content-Type' : 'text/plain' });
+            res.end('500 - Internal Error');
+        } 
+        else {
+            res.writeHead( responseCode, { 'Content-Type' : contentType });
+            res.end(data);
+        }
+    });
+}
+
 let server = http.createServer(function (req, res) {
     let objetourl = url.parse(req.url);
     dato = objetourl.query;
@@ -46,14 +61,38 @@ let server = http.createServer(function (req, res) {
         }
 
     }
-    fs.readFile('./etapas-de-la-vida/indexget.html', function (error, data) {
-        res.writeHead(200, {'Content-Type': 'text/html'});
-        res.end(data, 'utf-8');
 
-    });
-
-
-}).listen(100);
+    var path = req.url.replace(/\/?(?:\?.*)?$/, '').toLowerCase();
+    switch(path) {
+        case '':
+            serveStaticFile(res, '/etapas-de-la-vida/indexget.html', 'text/html');
+            break;
+        case '/pre-natal.png':
+            serveStaticFile(res, '/etapas-de-la-vida/pre-natal.png', 'image/png');
+            break;
+        case '/infancia.png':
+            serveStaticFile(res, '/etapas-de-la-vida/infancia.png', 'image/png');
+            break;
+        case '/ninez.png':
+            serveStaticFile(res, '/etapas-de-la-vida/ninez.png', 'image/png');
+            break;
+        case '/adolecencia.png':
+            serveStaticFile(res, '/etapas-de-la-vida/adolecencia.png', 'image/png');
+            break;
+        case '/juventud.png':
+            serveStaticFile(res, '/etapas-de-la-vida/juventud.png', 'image/png');
+            break;
+        case '/adultez.png':
+            serveStaticFile(res, '/etapas-de-la-vida/adultez.png', 'image/png');
+            break;
+        case '/ancienidad.png':
+            serveStaticFile(res, '/etapas-de-la-vida/ancienidad.png', 'image/png');
+            break;
+        default:
+            serveStaticFile(res, '/etapas-de-la-vida/indexget.html', 'text/html', 404);
+            break;
+    }
+}).listen(3000);
 let io = require('socket.io')(server);
 console.log('servidor funcionando');
 
